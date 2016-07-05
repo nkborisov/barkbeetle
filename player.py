@@ -4,7 +4,7 @@
 from pygame import *
 
 MOVE_SPEED = 7
-WIDTH = 22
+WIDTH = 32
 HEIGHT = 32
 COLOR =  "#888888"
 
@@ -17,8 +17,9 @@ class Player(sprite.Sprite):
         self.xvel = 0   #скорость перемещения. 0 - стоять на месте
         self.startX = x # Начальная позиция Х, пригодится когда будем переигрывать уровень
         self.startY = y
-        self.image = Surface((WIDTH,HEIGHT))
-        self.image.fill(Color(COLOR))
+        #self.image = Surface((WIDTH, HEIGHT))
+        #self.image.fill(Color(COLOR))
+        self.image = image.load("bug_1.png")
         self.rect = Rect(x, y, WIDTH, HEIGHT) # прямоугольный объект
         self.yvel = 0 # скорость вертикального перемещения
         self.onGround = False # На земле ли я?
