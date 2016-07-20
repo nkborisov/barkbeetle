@@ -78,6 +78,8 @@ class Player(sprite.Sprite):
                 return False
         return True
 
+
+
     def die(self):
             time.wait(1000)
             sound = mixer.Sound("fail.wav")
