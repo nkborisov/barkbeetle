@@ -9,11 +9,9 @@ import os
 MONSTER_WIDTH = 32
 MONSTER_HEIGHT = 32
 MONSTER_COLOR = "#2110FF"
-ICON_DIR = os.path.dirname(__file__) #  Полный путь к каталогу с файлами
 
-
-ANIMATION_MONSTERHORYSONTAL = [('%s/monsters/fire1.png' % ICON_DIR),
-                      ('%s/monsters/fire2.png' % ICON_DIR )]
+ANIMATION_MONSTERHORYSONTAL = [('/monsters/fire1.png'),
+                                ('/monsters/fire2.png')]
 
 class Woodcutter(sprite.Sprite):
     def __init__(self, x, y, left, up, maxLengthLeft,maxLengthUp):
@@ -33,17 +31,17 @@ class Woodcutter(sprite.Sprite):
             boltAnim.append((anim, 0.3))
         self.boltAnim = pyganim.PygAnimation(boltAnim)
         self.boltAnim.play()
-         
+
     def update(self, platforms): # по принципу героя
-                    
+
         self.image.fill(Color(MONSTER_COLOR))
         self.boltAnim.blit(self.image, (0, 0))
-       
+
         self.rect.y += self.yvel
         self.rect.x += self.xvel
- 
+
         self.collide(platforms)
-        
+
         if (abs(self.startX - self.rect.x) > self.maxLengthLeft):
             self.xvel =-self.xvel  # если прошли максимальное растояние, то идеи в обратную сторону
         if (abs(self.startY - self.rect.y) > self.maxLengthUp):

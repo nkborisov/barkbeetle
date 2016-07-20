@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from pygame import *
+import dieblock
 
 MOVE_SPEED = 7
 WIDTH = 32
@@ -18,6 +19,7 @@ class Player(sprite.Sprite):
         self.startX = x # Начальная позиция Х, пригодится когда будем переигрывать уровень
         self.startY = y
         self.score = 0
+        self.dead = False
         #self.image = Surface((WIDTH, HEIGHT))
         #self.image.fill(Color(COLOR))
         self.image = image.load("bug_1.png")
@@ -61,6 +63,11 @@ class Player(sprite.Sprite):
                 if yvel < 0:                      # если движется вверх
                     self.rect.top = p.rect.bottom # то не движется вверх
                     self.yvel = 0                 # и энергия прыжка пропадает
+                if isinstance(p, dieblock.BlockDie): # если пересакаемый блок - blocks.BlockDie
+                    self.die()# умираем
+                    self.image = image.load("dead_bug_1.png")
+
+
     def collideTree(self, trees):
         #для деревьев
         for tr in trees:
@@ -70,3 +77,15 @@ class Player(sprite.Sprite):
                 self.score += 1
                 return False
         return True
+
+    def die(self):
+            time.wait(1000)
+            sound = mixer.Sound("fail.wav")
+            channel = sound.play()      # Sound plays at full volume by default
+            self.teleporting(self.startX, self.startY) # перемещаемся в начальные координаты
+
+    def teleporting(self, goX, goY):
+            self.rect.x = goX
+            self.rect.y = goY
+            self.image = image.load("bug_1.png")
+
